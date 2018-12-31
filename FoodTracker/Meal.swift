@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class Meal: NSObject, NSCoding {
+class Meal: NSObject, NSCoding, NSSecureCoding {
     
     // MARK: Properties
     var name: String
@@ -66,5 +66,10 @@ class Meal: NSObject, NSCoding {
         
         // Must call designated initializer.
         self.init(name: name, photo: photo, rating: rating)
+    }
+    
+    // MARK: NSSecureCoding
+    static var supportsSecureCoding: Bool {
+        return true
     }
 }

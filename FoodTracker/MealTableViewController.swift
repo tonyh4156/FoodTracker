@@ -171,12 +171,12 @@ class MealTableViewController: UITableViewController {
             os_log("Failed to save meals...", log: OSLog.default, type: .error)
         }*/
         
+        let data = try! NSKeyedArchiver.archivedData(withRootObject: meals, requiringSecureCoding: true)
         do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: meals, requiringSecureCoding: false)
             try data.write(to: Meal.ArchiveURL)
         }
         catch {
-            fatalError("Unable to save meals: \(error)")
+            print("Unable to save meals.")
         }
     }
     
@@ -184,12 +184,9 @@ class MealTableViewController: UITableViewController {
         // Note: unarchiveObject was deprecated in iOS 12, using unarchiveTopLevelObjectWithData instead
         //return NSKeyedUnarchiver.unarchiveObject(withFile: Meal.ArchiveURL.path) as? [Meal]
         
-        do {
-            let data = try Data.init(contentsOf: Meal.ArchiveURL)
-            return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Meal]
+        guard let data = try? Data(contentsOf: Meal.ArchiveURL) else {
+            return nil
         }
-        catch {
-            fatalError("Unable to load meals: \(error)")
-        }
+        return try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Meal]
     }
 }
