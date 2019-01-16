@@ -8,6 +8,9 @@ Each meal includes a name that the user enters, a photo that the user chooses fr
 that the user selects.
 The adapted version adds support for iOS 12, and new features and improvements will be added in the near future.
 
+# In Progress
+- Ability to add ingredients for each meal
+
 # How To Install
 First, clone or download the project to your computer or git repository. Next, use Xcode to build the app. Finally, plug 
 your iDevice into your computer to select and install/run.
